@@ -52,6 +52,13 @@ describe('ProfileScreen', () => {
     expect(screen.getByText('hasitha@dynarq.com')).toBeTruthy();
     expect(screen.getByLabelText('Points 0')).toBeTruthy();
     expect(screen.getByTestId('verified-badge')).toBeTruthy();
+    expect(screen.queryByTestId('profile-photo')).toBeNull();
+  });
+
+  it('shows the profile photo when one is given', async () => {
+    await renderScreen({ ...testProfile, photo: require('../assets/profile.jpg') });
+    expect(screen.getByTestId('profile-photo')).toBeTruthy();
+    expect(screen.queryByText('R')).toBeNull();
   });
 
   it('tapping the button raises the points', async () => {

@@ -63,7 +63,7 @@ export function ProfileScreen({ profile: initialProfile }: Props) {
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.avatarWrap}>
-          <ProfileAvatar initial={initialOf(profile)} verified={profile.verified} />
+          <ProfileAvatar initial={initialOf(profile)} photo={profile.photo} verified={profile.verified} />
         </View>
         <View style={styles.divider} />
         <ProfileField label="Name" value={profile.name} />

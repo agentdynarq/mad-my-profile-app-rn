@@ -16,8 +16,8 @@ Module: Mobile Application Development, NSBM.
 | --- | --- |
 | ![Start](docs/screen-0.png) | ![After 3 taps](docs/screen-3.png) |
 
-Black header with a centred title and a reset action, avatar with a verified
-badge, a divider, then the Name, Email and Points rows. Points are capped at
+Black header with a centred title and a reset action, my profile photo with a
+verified badge, a divider, then the Name, Email and Points rows. Points are capped at
 999, and tapping past the cap shows a short message instead of silently doing
 nothing.
 
@@ -26,10 +26,11 @@ nothing.
 | Path | Purpose |
 | --- | --- |
 | `App.tsx` | Entry component, safe area provider and the profile loaded at start |
+| `assets/profile.jpg` | Profile photo shown in the avatar |
 | `src/models/userProfile.ts` | Profile type and the initial letter helper |
 | `src/state/profilePoints.ts` | Pure `award` and `reset` rules plus the `useProfilePoints` hook |
 | `src/screens/ProfileScreen.tsx` | The screen: header, avatar, fields, toast, floating button |
-| `src/components/ProfileAvatar.tsx` | Round avatar with ring and verified badge |
+| `src/components/ProfileAvatar.tsx` | Round photo avatar with ring and verified badge, falls back to the initial |
 | `src/components/ProfileField.tsx` | One label plus value row, optional leading icon |
 | `src/theme.ts` | Colours for the screen |
 | `__tests__/profile.test.tsx` | Rule tests and screen tests |
@@ -57,9 +58,9 @@ npm run typecheck
 npm test
 ```
 
-8 tests: 4 on the point rules (award, cap, reset, initial fallback) and 4 on
-the screen (details render, the button raises the counter, refresh clears it,
-the cap message shows and hides).
+9 tests: 4 on the point rules (award, cap, reset, initial fallback) and 5 on
+the screen (details render, the photo shows, the button raises the counter,
+refresh clears it, the cap message shows and hides).
 
 Verified on Expo SDK 57, React Native 0.86, React 19.2: `tsc` reports no
-errors, all 8 tests pass, and `expo export` bundles for Android and web.
+errors, all 9 tests pass, and `expo export` bundles for Android and web.

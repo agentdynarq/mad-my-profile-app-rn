@@ -10,6 +10,7 @@ export const CURRENT_USER: UserProfile = {
   email: 'hasitha@dynarq.com',
   points: 0,
   verified: true,
+  photo: require('./assets/profile.jpg'),
 };
 
 export default function App() {

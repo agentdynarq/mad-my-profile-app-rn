@@ -1,16 +1,17 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, type ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '../theme';
 
 type Props = {
   initial: string;
+  photo?: ImageSourcePropType;
   verified?: boolean;
   size?: number;
 };
 
-/** Round avatar on a white disc with a thin ring and a verified badge on the corner. */
-export function ProfileAvatar({ initial, verified = true, size = 124 }: Props) {
+/** Round avatar on a white disc with a thin ring and a verified badge on the corner. Falls back to the initial without a photo. */
+export function ProfileAvatar({ initial, photo, verified = true, size = 124 }: Props) {
   const inner = size - 28;
 
   return (
@@ -18,13 +19,18 @@ export function ProfileAvatar({ initial, verified = true, size = 124 }: Props) {
       <View
         style={[styles.face, { width: inner, height: inner, borderRadius: inner / 2 }]}
         accessibilityRole="image"
-        accessibilityLabel={`Avatar ${initial}`}
+        accessibilityLabel="Profile photo"
+        testID="profile-avatar"
       >
-        <Text style={[styles.initial, { fontSize: inner * 0.42 }]}>{initial}</Text>
+        {photo ? (
+          <Image source={photo} style={{ width: inner, height: inner, borderRadius: inner / 2 }} testID="profile-photo" />
+        ) : (
+          <Text style={[styles.initial, { fontSize: inner * 0.42 }]}>{initial}</Text>
+        )}
       </View>
       {verified ? (
         <View style={styles.badge} testID="verified-badge">
-          <MaterialIcons name="check" size={34} color={colors.verified} accessibilityLabel="Verified account" />
+          <MaterialIcons name="check" size={26} color={colors.verified} accessibilityLabel="Verified account" />
         </View>
       ) : null}
     </View>
@@ -43,6 +49,7 @@ const styles = StyleSheet.create({
     borderColor: colors.avatarRing,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   initial: {
     color: colors.ink,
@@ -50,7 +57,13 @@ const styles = StyleSheet.create({
   },
   badge: {
     position: 'absolute',
-    right: 10,
-    bottom: 14,
+    right: 8,
+    bottom: 10,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: colors.card,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
